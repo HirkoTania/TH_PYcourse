@@ -1,0 +1,24 @@
+"""
+Натуральное число, записанное в десятичной системе счисления, называется сверхпростым, если оно остается простым
+ при любой перестановке своих цифр. Определить все сверхпростые числа до n.
+"""
+import numpy as np
+import more_itertools as mi
+
+a = int(input ("p2lease enter a: \n "))
+def isPrime(a):
+    return all(a % i for i in range(2, int(a ** 0.5)+1))
+#print(isPrime(4))
+
+
+#print (list (str(a)))
+for k in range (1, a+1):
+    myListOfPerm = []
+    for i in mi.distinct_permutations(list (str(k))):
+        #print ("!!! {} is Prime {} ".format(int(''.join(map(str, i))), isPrime(int(''.join(map(str, i))))))
+        myListOfPerm = myListOfPerm + [int(''.join(map(str, i)))]
+    if all(isPrime(curr) for curr in myListOfPerm):
+        print("{} is Super Prime ".format(k))
+    #print ("{} is Prime {}".format(k, all(isPrime(curr) for curr in myListOfPerm)))
+
+# use 3913 for test
