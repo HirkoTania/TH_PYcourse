@@ -1,0 +1,178 @@
+"""Создать класс – Треугольник (class Triangle c ), заданного тремя точками (class-компонент Dot).
+ Функции-члены изменяют точки (get и set), обеспечивают вывод на экран координат (__str__),
+ рассчитывают длины сторон (AB, BC, CA)  (def length) и периметр треугольника (def perimeter).
+Создать список объектов (trlist).
+a)	подсчитать количество треугольников разного типа (равносторонний,	равнобедренный,	прямоугольный, произвольный).(is ... +count )
+b)	определить для каждой группы наибольший и наименьший по периметру объект.
+"""
+# импорт библиотек
+import matplotlib.ticker as ticker
+import matplotlib.patches as patches
+import matplotlib.pyplot as plt
+import numpy as np
+import random as random
+import math as math
+
+# объявление класса-компонента Dot
+class Dot():
+    x = 0
+    y = 0
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return ("x=" + str(self.x) + " y=" + str(self.y))
+
+# объявление основного класса triangle
+class Triangle():
+    def __init__(self, a, b, c):
+        self.__a = a
+        self.__b = b
+        self.__c = c
+        self.__abcLengths = self.raws()
+        self.__isEquilateral=self.checkEqual()  # equilateral равносторонний
+        self.__isIsosceles = self.checkIsosceles()  # Isosceles равнобедренный
+        self.__isRectangular = self.checkRectangular() # прямоугольный
+        if(self.__isEquilateral or self.__isIsosceles or self.__isRectangular):
+            self.__isArbitrary = False
+        else:
+            self.__isArbitrary = True #Произвольный
+
+# гетеры и сетеры
+    def getIsArbitrary(self):
+        return self.__isArbitrary
+
+    def getIsRectangular(self):
+        return self.__isRectangular
+
+    def getIsIsosceles(self):
+        return self.__isIsosceles
+
+    def getIsEquilateral(self):
+        return self.__isEquilateral
+
+    def getA(self):
+        return self.__a
+
+    def getB(self):
+        return self.__b
+
+    def getC(self):
+        return self.__c
+
+    def setA(self, a1):
+        self.__a = a1
+
+    def setB(self, b1):
+        self.__b = b1
+
+    def setC(self, c1):
+        self.__c = c1
+#methods
+    def checkEqual(self):
+        if len(set(self.__abcLengths)) == 1:
+            return True
+        else:
+            return False
+
+    def checkIsosceles(self):
+        if len(set(self.__abcLengths)) == 2:
+            return True
+        else:
+            return False
+
+    def checkRectangular(self):
+        tmpABC = self.__abcLengths.copy()
+        tmpABC.sort(reverse=True)
+        if tmpABC[0]**2 == tmpABC[1]**2+tmpABC[2]**2:
+            return True
+        else:
+            return False
+
+        # переопределение print
+    def __str__(self):
+        return ("Координаты точки 1: " + str(self.__a) + "\n" +
+                "Координаты точки 2: " + str(self.__b) + "\n" +
+                "Координаты точки 3: " + str(self.__c))
+
+# подсчет длин сторон треугольника
+    def raws(self):
+        AB = math.sqrt((self.__b.x - self.__a.x) ** 2 + (self.__b.y - self.__a.y) ** 2)
+        BC = math.sqrt((self.__c.x - self.__b.x) ** 2 + (self.__c.y - self.__b.y) ** 2)
+        CA = math.sqrt((self.__a.x - self.__c.x) ** 2 + (self.__a.y - self.__c.y) ** 2)
+        list1 = [AB, BC, CA]
+        return (list1)
+
+# вывод длин сторон
+    def length(self):
+        return ("length AB = " + str(self.__abcLengths[0]) + " length BC = " + str(self.__abcLengths[1]) + " length CA = " + str(
+            self.__abcLengths[2]))
+
+# подсчет периметра
+    def perimeter(self):
+        theSum = 0
+        for i in self.__abcLengths:
+            theSum = theSum + i
+        return (theSum)
+
+# создаем список треугольников и счетчики групп
+cntEquilateral = 0
+listEquilateral = []
+cntArbitrary = 0
+listArbitrary = []
+cntIsosceles = 0
+listIsosceles = []
+cntRectangular = 0
+listRectangular = []
+trlist = []
+
+for i in range (0,10):                                             #вариант трех одинаковых вершин не отсекаем
+    tr1 = Triangle(Dot(random.randint(0,10),random.randint(0,10)),
+                   Dot(random.randint(0,10),random.randint(0,10)),
+                   Dot(random.randint(0,10),random.randint(0,10)))
+
+    trlist.append(tr1)
+    print (tr1)    #координаты вершин
+    print (tr1.length())     #длины сторон
+    print ("Периметр треугольника: " + str(tr1.perimeter()))  #периметр
+    if(tr1.getIsEquilateral()):
+        print("Равносторонний")
+        cntEquilateral+=1
+        listEquilateral.append(tr1)
+    if (tr1.getIsArbitrary()):
+        print("Произвольный")
+        cntArbitrary+=1
+        listArbitrary.append(tr1)
+    if (tr1.getIsIsosceles()):
+        print("Равнобедренный")
+        cntIsosceles+=1
+        listIsosceles.append(tr1)
+    if (tr1.getIsRectangular()):
+        print("Прямоугольный")
+        cntRectangular+=1
+        listRectangular.append(tr1)
+    print (" ")  #разделительная строка
+
+print ("количество равносторонних треугольников = " + str(cntEquilateral))
+print ("количество равнобедренных треугольников = " + str(cntIsosceles))
+print ("количество прямоугольных треугольников = " + str(cntRectangular))
+print ("количество произвольных треугольников = " + str(cntArbitrary))
+
+def trianglemaxperimeter (trlist, type):
+    if len(trlist) != 0:
+        maxPerimeter = trlist[0].perimeter()
+        trWithMaxPerimeter = trlist[0]
+        for currTr in trlist:
+            if maxPerimeter < currTr.perimeter():
+                maxPerimeter = currTr.perimeter()
+                trWithMaxPerimeter = currTr
+        print (type + " треугольник с максимальным периметром = " + str(maxPerimeter))
+        print(trWithMaxPerimeter)
+
+
+trianglemaxperimeter(listEquilateral, "Равносторонний")
+trianglemaxperimeter(listArbitrary, "Произвольный")
+trianglemaxperimeter(listIsosceles, "Равнобедренный")
+trianglemaxperimeter(listRectangular, "Прямоугольный")
