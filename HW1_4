@@ -1,0 +1,235 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# """Ввести три числа m, n, p. Подсчитать количество отрицательных чисел."""
+
+print ("Ввести три числа m, n, p. Подсчитать количество отрицательных чисел")
+a = []
+while len(a) < 3:
+    a.append(int(input("Enter {}th element: \n".format(len(a)))))
+
+z = 0
+for b in a:
+    if b < 0:
+        z+=1
+print ("Amount is: {}".format (z))
+
+# """
+# Определить, имеется ли среди трёх чисел a, b и c хотя бы одна пара равных между собой чисел."""
+print ("Определить, имеется ли среди трёх чисел a, b и c хотя бы одна пара равных между собой чисел")
+
+c = []
+while len(c) <3:
+    c.append(int(input ("enter {}th value:".format(len(c)))))
+print ("Using SET")
+if len(set(c))<len(c):
+    print("The same numbers pair exists")
+else:
+    print ("Matched numbers aren't found")    
+
+print("Using WHILE")
+d=False
+b=0
+while b < len(c):
+    e = b+1
+    while e < len(c):
+        if c[b] == c[e]:
+            d= True
+        e +=1
+    b +=1
+    
+if d == True:
+    print ("The same numbers pair exists")
+else:
+    print ("Matched numbers aren't found")
+print ("-----------------------")
+
+# Удалить элементы, индексы которых кратны 7.
+print ("Удалить элементы, индексы которых кратны 7")
+import random
+
+randomlist = []
+for i in range(0,22):
+    n = random.randint(1,100)
+    randomlist.append(n)
+    print (str(i)+" "+str(randomlist[i]))
+
+i=7
+countremoved = 0
+
+while i < len(randomlist):
+    randomlist.pop(i)
+    countremoved +=1
+#    print (countremoved)
+    i +=6
+#    print (i)
+print (randomlist)
+print (len(randomlist))
+print ("-------------------------")
+
+# Найти значение минимального элемента списка.
+print ("Найти значение минимального элемента списка")
+
+list1 = []
+for i in range(0,22):
+    list1.append(random.randint(1,100))
+    print (str(i)+" "+str(list1[i]))
+
+
+""" Поиск циклом
+minval = list1[0]
+for i in list1:
+    if i<minval:
+        minval = i
+print (minval)"""
+
+#поиск сортировкой
+list1.sort(reverse=False)
+print (list1[0])
+print ("----------------------------")
+
+# Для каждого четного по номеру элемента списка A найти его сумму со следующим элементом и записать эти суммы в новый список B.
+print ("Для каждого четного по номеру элемента списка A найти его сумму со следующим элементом и записать эти суммы в новый список B")
+
+list2 = []
+list3 = []
+
+# без добавления последнего четного элемента в новый список
+for i in range(0,21):
+    list2.append(random.randint(1,100))
+    print (str(i)+" "+str(list2[i]))
+i=0
+if len(list2)//2:
+    while i <len(list2)-1:
+        list3.append(list2[i]+list2[i+1])
+        i+=2
+else:
+    while i <len(list2):
+        list3.append(list2[i]+list2[i+1])
+        i+=2
+    
+print(list3)
+#с добавлением последнего четного элемента в новый список
+list2 = []
+list3 = []
+for i in range(0,3):
+    list2.append(random.randint(1,100))
+    print (str(i)+" "+str(list2[i]))
+i=0
+while i <len(list2)-1:
+        list3.append(list2[i]+list2[i+1])
+        i+=2
+
+if (len(list2)%2)==1:
+    list3.append(list2[len(list2)-1])
+print(list3)
+print("-------------------------------")
+
+
+# Удалить все элементы с заданным значением, если они имеются в списке. 
+print("Удалить все элементы с заданным значением, если они имеются в списке")
+
+list4 = []
+
+for i in range (0, 20):
+    list4.append(random.randint(1,100))
+    print (str(i)+" "+str(list4[i]))
+
+n = int(input("enter value for deletion: \n"))
+#проход по всем элементам
+for i in list4:
+    if i == n:
+        list4.remove(i)
+
+for i in range(0, len(list4)):
+    print (str(i)+" "+str(list4[i]))
+
+#variant 2: удаляем, пока элемент есть в списке
+
+list5 = []
+
+for i in range (0, 20):
+    list5.append(random.randint(1,100))
+    print (str(i)+" "+str(list5[i]))
+
+n = int(input("enter value for deletion: \n"))
+
+while n in list5:
+    list5.remove(n)
+
+for i in range(0, len(list5)):
+    print (str(i)+" "+str(list5[i]))
+print("-----------------------------------")
+
+# Удалить из списка все элементы, совпадающие с его минимальным значением. 
+print("Удалить из списка все элементы, совпадающие с его минимальным значением")
+
+list6 = []
+for i in range (0, 20):
+    list6.append (random.randint(0,100))
+    print (str(i)+ " "+ str(list6[i]))
+list7 = list6.copy()   
+
+list7.sort()
+print ("min value:" + str(list7[0]))
+
+n = list7[0]
+
+while n in list6:
+    list6.remove(n)
+    
+print (list6)
+print ("------------------------------")
+
+# Найти значение максимального элемента списка. 
+print ("Найти значение максимального элемента списка")
+
+list7 = []
+
+for i in range (0,20):
+    list7.append(random.randint(0,100))
+print (list7)
+
+list7.sort(reverse=True)
+print("Maximum value is:   " + str(list7[0]))
+print ("--------------------------------")
+
+# Найти среднее арифметическое элементов списка.
+print ("Найти среднее арифметическое элементов списка")
+
+n = int(input("enter length from 10 to 50: \n"))
+
+list8 =[]
+for i in range (0, n):
+    list8.append(random.randint(0,100))
+#print (n)
+print (list8)
+
+m=0
+for i in list8:
+    m += i
+m=m/len(list8)
+print (m)
+print ("------------------------------")
+
+
+#среднее арифметическое всех четных элемнтов списка.
+print ("среднее арифметическое всех четных элемнтов списка")
+
+n = int(input("enter length from 10 to 50: \n"))
+list9 =[]
+for i in range (0, n):
+    list9.append(random.randint(0,100))
+
+print (list9)
+
+i=0
+m = 0
+z=0
+while i < len(list9):
+    m += list9[i]
+    z+=1
+    i+=2
+print(m/z)
+
+print ("The End!")
