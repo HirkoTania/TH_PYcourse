@@ -1,0 +1,45 @@
+"""Реализуйте рекурсивную функцию нарезания прямоугольника с заданными пользователем сторонами a и b на квадраты с
+наибольшей возможной на каждом этапе стороной. Выведите длины ребер получаемых квадратов и кол-во полученных квадратов."""
+import collections as col
+import random
+
+global iter_counter
+iter_counter = 0
+
+l1 = random.randint(5,50)
+h1 = random.randint(l1,55)
+
+myRectangleType = col.namedtuple ('Rectangle', ['l', 'h'])
+rectangle = myRectangleType(l=l1, h=h1)
+
+print ('initial ' + str(rectangle))
+#print ('-----')
+def mySquare (currentRectangle):
+    shortSide = 0
+    newh = 0
+    newl = 0
+    global iter_counter
+    if currentRectangle.h != 0 and currentRectangle.l !=0:
+        iter_counter += 1
+        if currentRectangle.l>currentRectangle.h:
+            shortSide = currentRectangle.h
+            newl = currentRectangle.l-currentRectangle.h
+            newh = currentRectangle.h
+        else:
+            shortSide = currentRectangle.l
+            newh = currentRectangle.h - currentRectangle.l
+            newl = currentRectangle.l
+       # print('current counter ' + str(iter_counter))
+        print (str(iter_counter) + '  Square side ' + str(shortSide))
+        newRectangle = myRectangleType(l=newl, h=newh)
+        print('-----')
+        print('next ' + str(newRectangle))
+        if newh==0 or newl ==0:
+            print('no more squares')
+        #recursive call
+        mySquare(newRectangle)
+
+mySquare(rectangle)
+print ('=====')
+print ('itogo ' + str(iter_counter))
+
