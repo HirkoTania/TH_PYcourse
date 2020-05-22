@@ -1,0 +1,54 @@
+
+
+
+#Скопировать в файл F2 только четные строки из F1. Подсчитать размер файлов F1 и F2 (в байтах).
+import os
+
+f1 = open ("D:\python\\file1.txt", "r")
+
+f2 = open ("D:\python\\file2.txt", "w")
+i = 1
+for line in f1:
+    if i%2 == 0:
+        f2.write(line)
+    i+=1
+
+f2.close()
+
+f1.close()
+
+f2 = open ("D:\python\\file2.txt", "r")
+for line in f2:
+    print (line, end = '')
+f2.close()
+
+print ("size of init file  " + str(os.stat("D:\python\\file1.txt").st_size))
+print ("size of copied file  " + str(os.stat("D:\python\\file2.txt").st_size))
+
+
+#Скопировать из файла F1 в файл F2 все строки, в которых нет слов, совпадающих с первым словом. Определить количество согласных букв в первой строке  файла F2.
+import re
+f1 = open ("D:\python\\file3.txt", "r", encoding = 'utf8')
+f2 = open ("D:\python\\file4.txt", "w")
+i=0
+first_line=""
+for line in f1:
+    words = re.findall(r'\w+', line)
+    first_word = words[0]
+    words.pop(0)
+    if first_word not in words:
+        f2.write(line)
+        if i==0:
+            first_line=line
+    i+=1
+f2.close()
+f1.close()
+sogl=0
+for letter in first_line.lower():
+    if letter in {'б', 'в', 'г', 'д', 'ж', 'з', 'й', 'к', 'л', 'м', 'н', 'п', 'р', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь', 'ъ'} :
+        sogl +=1
+f2 = open ("D:\python\\file4.txt", "r")
+for line in f2:
+    print (line, end = '')
+f2.close()
+print (str(sogl) + " cогласных букв в первой строке  файла F2")
